@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'SNOperation_Example' do
+  pod 'SNOperation', :path => '../'
+
+  target 'SNOperation_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
