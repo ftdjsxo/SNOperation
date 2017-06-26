@@ -1,0 +1,6 @@
+framework module Pods_SNOperation_Tests {
+  umbrella header "Pods-SNOperation_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

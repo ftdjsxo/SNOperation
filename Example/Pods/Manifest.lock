@@ -1,0 +1,16 @@
+PODS:
+  - SNOperation (0.1.0)
+
+DEPENDENCIES:
+  - SNOperation (from `../`)
+
+EXTERNAL SOURCES:
+  SNOperation:
+    :path: ../
+
+SPEC CHECKSUMS:
+  SNOperation: c02f718dd42cd544ebaf0e819334ae08a6a2be72
+
+PODFILE CHECKSUM: 75b8bd40ae56df25b747f8a07d0a0129fa828d71
+
+COCOAPODS: 1.2.1
