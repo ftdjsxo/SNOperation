@@ -30,9 +30,9 @@
  
  public class SimpleNetworkOperation {
     
-    var session: URLSession // = NSURLSession.sharedSession();
-    var queryURL =  NSURL()
-    var urlString : String!
+    public var session: URLSession // = NSURLSession.sharedSession();
+    public var queryURL =  NSURL()
+    public var urlString : String!
     
     static let DEFAULT_TIMEOUT : Double = 15
     
@@ -142,7 +142,7 @@
         executeDataTask(request: request, completion: completion, type: type)
     }
     
-    private func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: NSData?) -> URLRequest{
+    public func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: NSData?) -> URLRequest{
         var request = URLRequest(url: queryURL as URL)
         request.httpMethod = type.rawValue
         request.httpBody = body as Data?
@@ -156,7 +156,7 @@
         return request
     }
     
-    private func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: NSData?, whit queryString: String) -> URLRequest{
+    public func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: NSData?, whit queryString: String) -> URLRequest{
         
         let url = NSURL(string: urlString.appending(queryString))
         NSLog(urlString.appending(queryString))
@@ -174,7 +174,7 @@
         return request
     }
     
-    private func executeDataTask(request: URLRequest, completion: @escaping JSONDictionaryCompletion, type: RequestMethodType){
+    public func executeDataTask(request: URLRequest, completion: @escaping JSONDictionaryCompletion, type: RequestMethodType){
         
         session.dataTask(with: request) { (data, response, error) in
             var jsonObject : Any?
