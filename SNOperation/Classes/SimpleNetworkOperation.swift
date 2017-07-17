@@ -14,12 +14,12 @@
     case get = "GET"
  }
  
- extension URLRequest{
+ public extension URLRequest{
     
     /*Ritorna base64EncodedData risultato da username & password
      Aggiunge il parametro per la BasicAthentication nel HTTPHeaderField "Authorization"
      */
-    mutating func setBasicAuthentication(username: String, password: String) ->  String{
+   public mutating func setBasicAuthentication(username: String, password: String) ->  String{
         let loginString = NSString(format: "%@:%@", username, password)
         let loginData: Data = loginString.data(using: String.Encoding.utf8.rawValue)!  //loginString.dataUsingEncoding(NSUTF8StringEncoding.rawValue)!
         let base64LoginString = loginData.base64EncodedString(options: .lineLength64Characters)
@@ -55,13 +55,13 @@
         self.init(url: url, timeout : SimpleNetworkOperation.DEFAULT_TIMEOUT)
     }
     
-    public func operationWithAuthorization(requestMethodType type: RequestMethodType, body: NSData?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?, username : String, password: String) {
+    public func operationWithAuthorization(requestMethodType type: RequestMethodType, body: Data?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?, username : String, password: String) {
         var request = getPreparedRequest(requestMethodType: type, headerParams: headerParams, body: body)
         request.setBasicAuthentication(username: username, password: password)
         executeDataTask(request: request, completion: completion, type: type)
     }
     
-    public func operationWithAuthorization(requestMethodType type: RequestMethodType, body: NSData?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?, username : String, password: String, queryStringParameters : Dictionary<String, String>) {
+    public func operationWithAuthorization(requestMethodType type: RequestMethodType, body: Data?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?, username : String, password: String, queryStringParameters : Dictionary<String, String>) {
         
         var queryString : String = "?"
         var keyCount = 0
@@ -100,12 +100,12 @@
     }
 
     
-    public func operation(requestMethodType type: RequestMethodType, body: NSData?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?) {
+    public func operation(requestMethodType type: RequestMethodType, body: Data?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?) {
         let request = getPreparedRequest(requestMethodType: type, headerParams: headerParams, body: body)
         executeDataTask(request: request, completion: completion, type: type)
     }
     
-    public func operation(requestMethodType type: RequestMethodType, body: NSData?,  completion:  @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?, queryStringParameters : Dictionary<String, String>) {
+    public func operation(requestMethodType type: RequestMethodType, body: Data?,  completion:  @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?, queryStringParameters : Dictionary<String, String>) {
         
         var queryString : String = "?"
         var keyCount = 0
@@ -142,7 +142,7 @@
         executeDataTask(request: request, completion: completion, type: type)
     }
     
-    public func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: NSData?) -> URLRequest{
+    public func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: Data?) -> URLRequest{
         var request = URLRequest(url: queryURL as URL)
         request.httpMethod = type.rawValue
         request.httpBody = body as Data?
@@ -156,7 +156,7 @@
         return request
     }
     
-    public func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: NSData?, whit queryString: String) -> URLRequest{
+    public func getPreparedRequest(requestMethodType type: RequestMethodType, headerParams: Dictionary<String, String>?, body: Data?, whit queryString: String) -> URLRequest{
         
         let url = NSURL(string: urlString.appending(queryString))
         NSLog(urlString.appending(queryString))
