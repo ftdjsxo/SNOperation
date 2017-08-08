@@ -19,7 +19,8 @@
     /*Ritorna base64EncodedData risultato da username & password
      Aggiunge il parametro per la BasicAthentication nel HTTPHeaderField "Authorization"
      */
-   public mutating func setBasicAuthentication(username: String, password: String) ->  String{
+    @discardableResult
+    public mutating func setBasicAuthentication(username: String, password: String) ->  String{
         let loginString = NSString(format: "%@:%@", username, password)
         let loginData: Data = loginString.data(using: String.Encoding.utf8.rawValue)!  //loginString.dataUsingEncoding(NSUTF8StringEncoding.rawValue)!
         let base64LoginString = loginData.base64EncodedString(options: .lineLength64Characters)
@@ -33,6 +34,7 @@
     public var session: URLSession // = NSURLSession.sharedSession();
     public var queryURL =  NSURL()
     public var urlString : String!
+    public var debug : Bool = false
     
     static let DEFAULT_TIMEOUT : Double = 15
     
@@ -98,7 +100,7 @@
         request.setBasicAuthentication(username: username, password: password)
         executeDataTask(request: request, completion: completion, type: type)
     }
-
+    
     
     public func operation(requestMethodType type: RequestMethodType, body: Data?,  completion: @escaping JSONDictionaryCompletion, headerParams: Dictionary<String, String>?) {
         let request = getPreparedRequest(requestMethodType: type, headerParams: headerParams, body: body)
@@ -180,7 +182,7 @@
             var jsonObject : Any?
             
             guard let httpResponse = response as? HTTPURLResponse, let recievedData = data else{
-                print(response as? HTTPURLResponse, data )
+                self.snoDebug(response as? HTTPURLResponse, data )
                 
                 completion(nil, 0, nil)
                 return
@@ -192,7 +194,13 @@
             
             completion(jsonObject, httpResponse.statusCode, error)
             
-        }.resume()
+            }.resume()
+    }
+    
+    public func snoDebug(_ items : Any?...){
+        if debug {
+            print(items)
+        }
     }
     
  }
