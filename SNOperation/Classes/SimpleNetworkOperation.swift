@@ -3,7 +3,6 @@
  //  MyAngel
  //
  //  Created by Andrea Belli on 08/03/16.
- //  Copyright © 2016 Groupama. All rights reserved.
  //
  
  
@@ -36,7 +35,7 @@
     public var urlString : String!
     public var debug : Bool = false
     
-    static let DEFAULT_TIMEOUT : Double = 15
+    static let DEFAULT_TIMEOUT : Double = 30
     
     public typealias JSONDictionaryCompletion = (Any?, Int?, Error?) -> Void
     public typealias JSONDictionaryCompletionAndDataTask = (Any?, Int?, Error?, URLSessionDataTask?) -> Void
